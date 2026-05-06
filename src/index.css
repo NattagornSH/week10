@@ -1,1 +1,126 @@
 @import "tailwindcss";
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Cinzel:wght@400;600;700&display=swap');
+
+/* Genshin Impact Theme Styles */
+*,
+*::before,
+*::after,
+html,
+body,
+div,
+span,
+input,
+textarea,
+button,
+a,
+select {
+  cursor: url('/primogrm.png') 16 16, auto !important;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Force primogem cursor on all interactive elements */
+button, a, input, select, textarea, [role="button"], 
+button:hover, a:hover, input:hover, select:hover, textarea:hover,
+button:active, a:active, input:active, select:active, textarea:active,
+button:focus, a:focus, input:focus, select:focus, textarea:focus,
+input[type="text"], input[type="email"], input[type="password"],
+input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus,
+input[type="text"]:active, input[type="email"]:active, input[type="password"]:active {
+  cursor: url('/primogrm.png') 16 16, auto !important;
+}
+
+/* Override text cursor in inputs */
+input, textarea {
+  cursor: url('/primogrm.png') 16 16, auto !important;
+  caret-color: #4A9FDB;
+}
+
+.genshin-title {
+  font-family: 'Cinzel', serif;
+  letter-spacing: 0.05em;
+}
+
+/* Star pattern background */
+.star-pattern {
+  background-image: 
+    radial-gradient(2px 2px at 20% 30%, white, transparent),
+    radial-gradient(2px 2px at 60% 70%, white, transparent),
+    radial-gradient(1px 1px at 50% 50%, white, transparent),
+    radial-gradient(1px 1px at 80% 10%, white, transparent),
+    radial-gradient(2px 2px at 90% 60%, white, transparent),
+    radial-gradient(1px 1px at 33% 80%, white, transparent);
+  background-size: 200% 200%;
+  background-position: 0% 0%;
+  animation: twinkle 8s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Golden glow effect */
+.golden-glow {
+  box-shadow: 
+    0 0 20px rgba(255, 215, 0, 0.4),
+    0 0 40px rgba(255, 215, 0, 0.2),
+    0 0 60px rgba(255, 215, 0, 0.1);
+}
+
+/* Blue glow effect */
+.blue-glow {
+  box-shadow: 
+    0 0 20px rgba(74, 159, 219, 0.4),
+    0 0 40px rgba(74, 159, 219, 0.2);
+}
+
+/* Genshin button style */
+.genshin-button {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #4A9FDB 0%, #357ABD 100%);
+  border: 2px solid #FFD700;
+}
+
+.genshin-button::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  transform: rotate(45deg);
+  transition: all 0.6s;
+}
+
+.genshin-button:hover::before {
+  left: 100%;
+}
+
+/* Particle effect */
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.8) 0%, transparent 70%);
+  pointer-events: none;
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Ornamental border */
+.ornamental-border {
+  border-image: linear-gradient(135deg, #FFD700, #4A9FDB, #FFD700) 1;
+}

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { validateEmail, validatePassword } from "../utils/validation";
 import FormInput from "./FormInput";
 
-const LoginForm = ({ onLogin }) => {
+const LoginForm = ({ onLogin, onStartMusic }) => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -24,6 +24,11 @@ const LoginForm = ({ onLogin }) => {
       ...prev,
       [name]: "",
     }));
+
+    // Start music on first interaction
+    if (onStartMusic) {
+      onStartMusic();
+    }
   };
 
   const handleSubmit = (e) => {
@@ -47,36 +52,68 @@ const LoginForm = ({ onLogin }) => {
   };
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-violet-500 via-purple-500 to-fuchsia-500 flex items-center justify-center p-4 relative overflow-hidden">
-      {/* Animated background elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-20 left-20 w-72 h-72 bg-white/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-20 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-white/5 rounded-full blur-2xl"></div>
+    <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
+      {/* Video Background */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover"
+      >
+        <source src="/loadingGi.mp4" type="video/mp4" />
+      </video>
+
+      {/* Overlay to make content more readable */}
+      <div className="absolute inset-0 bg-black/30"></div>
+
+      {/* Animated sky background with clouds (fallback) */}
+      <div className="absolute inset-0 overflow-hidden star-pattern opacity-50">
+        <div className="absolute top-20 left-20 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-float"></div>
+        <div
+          className="absolute bottom-20 right-20 w-80 h-80 bg-blue-300/20 rounded-full blur-3xl animate-float"
+          style={{ animationDelay: "1s" }}
+        ></div>
+        <div
+          className="absolute top-1/2 left-1/3 w-64 h-64 bg-yellow-200/10 rounded-full blur-2xl animate-float"
+          style={{ animationDelay: "2s" }}
+        ></div>
       </div>
 
-      <div className="relative bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl p-8 md:p-10 max-w-md w-full border border-white/20">
+      {/* Floating particles */}
+      <div className="absolute top-1/4 left-1/4 w-3 h-3 bg-yellow-300 rounded-full animate-sparkle"></div>
+      <div className="absolute top-1/3 right-1/4 w-2 h-2 bg-blue-300 rounded-full animate-star-twinkle"></div>
+      <div
+        className="absolute bottom-1/4 left-1/3 w-2 h-2 bg-yellow-400 rounded-full animate-sparkle"
+        style={{ animationDelay: "0.5s" }}
+      ></div>
+      <div
+        className="absolute top-2/3 right-1/3 w-3 h-3 bg-cyan-300 rounded-full animate-star-twinkle"
+        style={{ animationDelay: "1s" }}
+      ></div>
+
+      <div className="relative bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl p-8 md:p-10 max-w-md w-full border-4 border-genshin-accent golden-glow animate-fade-in">
+        {/* Decorative corners */}
+        <div className="absolute top-0 left-0 w-16 h-16 border-t-4 border-l-4 border-genshin-accent rounded-tl-3xl"></div>
+        <div className="absolute top-0 right-0 w-16 h-16 border-t-4 border-r-4 border-genshin-accent rounded-tr-3xl"></div>
+        <div className="absolute bottom-0 left-0 w-16 h-16 border-b-4 border-l-4 border-genshin-accent rounded-bl-3xl"></div>
+        <div className="absolute bottom-0 right-0 w-16 h-16 border-b-4 border-r-4 border-genshin-accent rounded-br-3xl"></div>
+
         {/* Header */}
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-linear-to-br from-violet-500 to-fuchsia-500 rounded-2xl shadow-lg mb-4 transform hover:rotate-6 transition-transform duration-300">
-            <svg
-              className="w-8 h-8 text-white"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-              />
-            </svg>
+        <div className="text-center mb-8 animate-slide-in">
+          <div className="inline-flex items-center justify-center w-32 h-32 mb-4 transform hover:scale-110 transition-all duration-300">
+            <img
+              src="/paimonIntro.png"
+              alt="Paimon"
+              className="w-full h-full object-contain drop-shadow-2xl animate-float"
+            />
           </div>
-          <h1 className="text-4xl font-bold bg-linear-to-r from-violet-600 to-fuchsia-600 bg-clip-text text-transparent mb-2">
-            Welcome Back
+          <h1 className="genshin-title text-5xl font-bold bg-gradient-to-r from-genshin-blue via-cyan-500 to-blue-600 bg-clip-text text-transparent mb-2 tracking-wide">
+            Teyvat Awaits
           </h1>
-          <p className="text-gray-600">Sign in to continue to your account</p>
+          <p className="text-genshin-dark/70 text-sm">
+            Begin your journey across the seven nations
+          </p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -85,11 +122,11 @@ const LoginForm = ({ onLogin }) => {
             id="email"
             name="email"
             type="email"
-            label="Email Address"
+            label="Traveler's Email"
             value={formData.email}
             onChange={handleChange}
             error={errors.email}
-            placeholder="you@example.com"
+            placeholder="you@teyvat.com"
             icon="email"
           />
 
@@ -98,7 +135,7 @@ const LoginForm = ({ onLogin }) => {
             id="password"
             name="password"
             type="password"
-            label="Password"
+            label="Secret Code"
             value={formData.password}
             onChange={handleChange}
             error={errors.password}
@@ -109,12 +146,11 @@ const LoginForm = ({ onLogin }) => {
           {/* Submit Button */}
           <button
             type="submit"
-            className="group relative w-full bg-linear-to-r from-violet-500 to-fuchsia-500 hover:from-violet-600 hover:to-fuchsia-600 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-2xl active:scale-95 focus:outline-none focus:ring-4 focus:ring-violet-300 overflow-hidden"
+            className="genshin-button group relative w-full text-white font-bold py-4 px-6 rounded-2xl transition-all duration-300 ease-in-out transform hover:scale-105 active:scale-95 focus:outline-none focus:ring-4 focus:ring-genshin-accent/50 text-lg shadow-xl"
           >
-            <span className="relative z-10 flex items-center justify-center gap-2">
-              Sign In
+            <span className="relative z-10 flex items-center justify-center gap-3 genshin-title">
               <svg
-                className="w-5 h-5 transition-transform group-hover:translate-x-1"
+                className="w-6 h-6"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -122,20 +158,33 @@ const LoginForm = ({ onLogin }) => {
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  strokeWidth={2}
+                  strokeWidth={2.5}
+                  d="M13 10V3L4 14h7v7l9-11h-7z"
+                />
+              </svg>
+              Start Adventure
+              <svg
+                className="w-6 h-6 transition-transform group-hover:translate-x-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2.5}
                   d="M13 7l5 5m0 0l-5 5m5-5H6"
                 />
               </svg>
             </span>
-            <div className="absolute inset-0 bg-linear-to-r from-fuchsia-500 to-violet-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           </button>
         </form>
 
         {/* Info Box */}
-        <div className="mt-8 p-4 bg-linear-to-r from-violet-50 to-fuchsia-50 rounded-xl border border-violet-100">
+        <div className="mt-8 p-4 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-2xl border-2 border-genshin-blue/30">
           <div className="flex gap-3">
             <svg
-              className="w-5 h-5 text-violet-500 shrink-0 mt-0.5"
+              className="w-5 h-5 text-genshin-blue shrink-0 mt-0.5"
               fill="currentColor"
               viewBox="0 0 20 20"
             >
@@ -145,9 +194,11 @@ const LoginForm = ({ onLogin }) => {
                 clipRule="evenodd"
               />
             </svg>
-            <p className="text-xs text-gray-600 leading-relaxed">
-              <strong className="text-violet-700">Demo App:</strong> Your
-              session will persist even after refreshing the page thanks to
+            <p className="text-xs text-genshin-dark/70 leading-relaxed">
+              <strong className="text-genshin-blue font-semibold">
+                Traveler's Note:
+              </strong>{" "}
+              Your progress is saved in the Adventurer's Handbook using
               localStorage.
             </p>
           </div>
