@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import { useAuth } from "./hooks/useAuth";
 import LoginForm from "./components/LoginForm";
 import WelcomePage from "./components/WelcomePage";
+import MouseTrail from "./components/MouseTrail";
 
 function App() {
   const { isLoggedIn, userEmail, login, logout } = useAuth();
@@ -52,6 +53,9 @@ function App() {
 
   return (
     <>
+      {/* Mouse Trail Effect */}
+      <MouseTrail />
+
       {/* Global Background Music */}
       <audio ref={audioRef} loop>
         <source src="/Dawn-Winery-Theme.mp3" type="audio/mpeg" />

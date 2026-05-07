@@ -39,6 +39,22 @@ input, textarea {
   caret-color: #4A9FDB;
 }
 
+/* Mouse trail animation */
+@keyframes trail-fade {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5);
+  }
+}
+
+.animate-trail-fade {
+  animation: trail-fade 0.8s ease-out forwards;
+}
+
 .genshin-title {
   font-family: 'Cinzel', serif;
   letter-spacing: 0.05em;
